@@ -1,9 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { AppState, selectBookmarks, selectBookmarksGroupedbyGroup } from '../app.state';
+import { AppState, selectBookmarks, selectBookmarksGroupedbyGroup, selectBookmarksGroupedby } from '../app.state';
 import { Bookmarks, Bookmark, DeleteBookmark, CreateBookmark, LoadBookmarkInit } from './state';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @Component({
@@ -13,26 +13,45 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 })
 export class BookmarkComponent implements OnInit {
 
-  bookmarks$: Observable<Bookmarks>;
-  // groupedBookmarks$: Observable<Map<string, Bookmark[]>>;
+  bookmarks$: Observable<Bookmark[]>;
+  groupedBookmarks$: Observable<Map<string, Bookmark[]>>;
+
   displayedColumns: string[] = ['Name', 'URL', 'Group', 'Delete'];
 
-  categories = ['General', 'Work', 'Personal'];
+  groups = [];
+
+  isEditMode = false;
 
   constructor(private store: Store<AppState>, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.bookmarks$ = this.store.pipe(select(selectBookmarks));
-    // this.groupedBookmarks$ = this.store.pipe(select(selectBookmarksGroupedbyGroup));
+
+    // ----- GET GROUPS -------
+    this.groupedBookmarks$ = this.store.pipe(select(selectBookmarksGroupedbyGroup));
+    this.groupedBookmarks$.subscribe(data => {
+      this.groups = Object.keys(data);
+      for (const group of this.groups) {
+        console.log('------------------------');
+        console.log(data[group]);
+      }
+    }
+    );
+  // ----- GET GROUPS -------
+
     this.loadBookmarks();
   }
 
+  selectGroup(group: string) {
+    if (group === 'all') {
+      this.bookmarks$ = this.store.pipe(select(selectBookmarks));
+    } else {
+      this.bookmarks$ = this.store.pipe(select(selectBookmarksGroupedby(group)));
+    }
+  }
+
   createBookmark(bookmark: Bookmark) {
-    this.store.dispatch(new CreateBookmark({
-      name: bookmark.name,
-      url: bookmark.url,
-      group: bookmark.group,
-    }));
+    this.store.dispatch(new CreateBookmark(bookmark));
   }
 
   deleteBookmark(bookmark: Bookmark) {
