@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectBookmarks, selectBookmarksGroupedbyGroup } from '../app.state';
 import { Bookmarks, Bookmark, DeleteBookmark, CreateBookmark, LoadBookmarkInit } from './state';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-bookmark',
@@ -17,9 +19,7 @@ export class BookmarkComponent implements OnInit {
 
   categories = ['General', 'Work', 'Personal'];
 
-  newBookmark: Bookmark = emptyBookmark;
-
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.bookmarks$ = this.store.pipe(select(selectBookmarks));
@@ -27,11 +27,11 @@ export class BookmarkComponent implements OnInit {
     this.loadBookmarks();
   }
 
-  createBookmark() {
+  createBookmark(bookmark: Bookmark) {
     this.store.dispatch(new CreateBookmark({
-      name: this.newBookmark.name,
-      url: this.newBookmark.url,
-      group: this.newBookmark.group,
+      name: bookmark.name,
+      url: bookmark.url,
+      group: bookmark.group,
     }));
   }
 
@@ -39,14 +39,42 @@ export class BookmarkComponent implements OnInit {
     this.store.dispatch(new DeleteBookmark(bookmark));
   }
 
-  loadBookmarks(){
+  loadBookmarks() {
     this.store.dispatch(new LoadBookmarkInit(null));
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogCreateBookmarkComponent, {
+      width: '400px',
+      data: {name: '', url: '', group: ''}
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        this.createBookmark({name: data.name, group: data.group, url: data.url} );
+      }
+    });
   }
 }
 
+@Component({
+  selector: 'app-bookmark-create-dialog',
+  templateUrl: './bookmark.create-dialog.html',
+})
+export class DialogCreateBookmarkComponent {
 
-const emptyBookmark: Bookmark = {
-  name: null,
-  url: null,
-  group: null,
+  constructor(
+    public dialogRef: MatDialogRef<DialogCreateBookmarkComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onCancel(): void {
+    this.dialogRef.close();
+  }
+
+}
+
+export class DialogData {
+  name: string;
+  url: string;
+  group: string;
 }

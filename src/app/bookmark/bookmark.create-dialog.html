@@ -1,0 +1,20 @@
+<h1 mat-dialog-title> Create Bookmark </h1>
+
+<div mat-dialog-content>
+    <mat-form-field>
+        <input matInput name="name"  placeholder="Name" required [(ngModel)]="data.name">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type="url" placeholder="URL" required name="url" [(ngModel)]="data.url">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput name="group" placeholder="Group" required name="group" [(ngModel)]="data.group">
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Save</button>
+  <button mat-button (click)="onCancel()">Cancel</button>
+</div>
+
+
