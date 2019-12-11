@@ -1,0 +1,71 @@
+<mat-toolbar color="primary">
+  <span>Bookmarks</span>
+  <span class="custom-spacer"></span>
+  <mat-icon aria-hidden="false" aria-label="Example user verified icon">verified_user</mat-icon>
+</mat-toolbar>
+
+<!-- <form class="create-bookmark-form">
+    <mat-form-field class="example-full-width" >
+        <input matInput name="name"  placeholder="Name" required [(ngModel)]='newBookmark.name' name="name">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput type="url" placeholder="URL" required [(ngModel)]='newBookmark.url' name="url">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput name="group" placeholder="Group" required [(ngModel)]='newBookmark.group' name="group">
+    </mat-form-field>
+</form> -->
+
+<!-- <div>
+    <button class="local-button-border" type="submit" (click)="createBookmark()">Create</button>
+</div> -->
+
+<mat-drawer-container class="bookmark-content">
+  <!--SIDE BAR-->
+  <mat-drawer mode="side" opened>
+    <mat-list>
+      <h3 mat-subheader>Groups</h3>
+      <!-- <mat-divider></mat-divider> -->
+      <mat-list-item *ngFor="let bookmark of categories">
+        <mat-icon mat-list-icon >folder</mat-icon>
+        <h4 mat-line>{{bookmark}}</h4>
+        <p mat-line> 4 items </p>
+      </mat-list-item>
+    </mat-list>
+  </mat-drawer>
+
+  <!--CONTENT-->
+  <mat-drawer-content>
+    <div *ngIf = "bookmarks$ | async as bookmarks">
+      <table mat-table [dataSource]="bookmarks.bookmarks">
+          <ng-container matColumnDef="Name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let bookmark"> {{bookmark.name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="URL">
+              <th mat-header-cell *matHeaderCellDef>URL</th>
+              <td mat-cell *matCellDef="let bookmark"> {{bookmark.url}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Group">
+              <th mat-header-cell *matHeaderCellDef>Group</th>
+              <td mat-cell *matCellDef="let bookmark"> {{bookmark.group}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Delete">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let bookmark">
+                <!-- <mat-icon class="delete-icon" mat-list-icon (click)="deleteBookmark(bookmark)">delete</mat-icon> -->
+                <button mat-icon-button color="warn" aria-label="delete icon" (click)="deleteBookmark(bookmark)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+
+<button mat-raised-button color="primary" (click)="createBookmark()">Create</button>
