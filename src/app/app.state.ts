@@ -20,18 +20,16 @@ export const effects: Array<any> = [
 
 export const selectBookmarks = (appState: AppState) => appState.bookmarks.bookmarks;
 
-export const selectBookmarksGroupedbyGroup = createSelector(
+export const selectBookmarksGroups = createSelector(
     selectBookmarks, (bookmarks: bookmarkStore.Bookmark[]) => {
-        const groupedBookemarkMap: Map<string, bookmarkStore.Bookmark[]> = groupBy(bookmarks, 'group');
-        return groupedBookemarkMap;
+        const groups = Object.keys(groupBy(bookmarks, 'group'));
+        return ['All'].concat(groups);
     }
 );
 
-export const selectBookmarksGroupedby = (group: string) => createSelector(
+export const selectBookmarksByGroup = (group: string) => createSelector(
   selectBookmarks, (bookmarks: bookmarkStore.Bookmark[]) => {
       return bookmarks.filter(b => b.group === group);
-      // const groupedBookemarkMap: Map<string, bookmarkStore.Bookmark[]> = groupBy(bookmarks.bookmarks, 'group');
-      // return groupedBookemarkMap;
   }
 );
 

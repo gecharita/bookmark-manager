@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { AppState, selectBookmarks, selectBookmarksGroupedbyGroup, selectBookmarksGroupedby } from '../app.state';
+import { AppState, selectBookmarks, selectBookmarksGroups, selectBookmarksByGroup } from '../app.state';
 import { Bookmarks, Bookmark, DeleteBookmark, CreateBookmark, LoadBookmarkInit } from './state';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -14,11 +14,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 export class BookmarkComponent implements OnInit {
 
   bookmarks$: Observable<Bookmark[]>;
-  groupedBookmarks$: Observable<Map<string, Bookmark[]>>;
+  groups$: Observable<string[]>;
 
   displayedColumns: string[] = ['Name', 'URL', 'Group', 'Delete'];
-
-  groups = [];
 
   isEditMode = false;
 
@@ -27,26 +25,16 @@ export class BookmarkComponent implements OnInit {
   ngOnInit() {
     this.bookmarks$ = this.store.pipe(select(selectBookmarks));
 
-    // ----- GET GROUPS -------
-    this.groupedBookmarks$ = this.store.pipe(select(selectBookmarksGroupedbyGroup));
-    this.groupedBookmarks$.subscribe(data => {
-      this.groups = Object.keys(data);
-      for (const group of this.groups) {
-        console.log('------------------------');
-        console.log(data[group]);
-      }
-    }
-    );
-  // ----- GET GROUPS -------
+    this.groups$ = this.store.pipe(select(selectBookmarksGroups));
 
     this.loadBookmarks();
   }
 
   selectGroup(group: string) {
-    if (group === 'all') {
+    if (group === 'All') {
       this.bookmarks$ = this.store.pipe(select(selectBookmarks));
     } else {
-      this.bookmarks$ = this.store.pipe(select(selectBookmarksGroupedby(group)));
+      this.bookmarks$ = this.store.pipe(select(selectBookmarksByGroup(group)));
     }
   }
 

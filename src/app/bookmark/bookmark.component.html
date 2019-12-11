@@ -5,21 +5,23 @@
   <mat-slide-toggle color="warn" [(ngModel)]="isEditMode">Edit</mat-slide-toggle>
 </mat-toolbar>
 
+<!--SIDE BAR: GROUPS-->
 <mat-drawer-container class="bookmark-content">
-  <!--SIDE BAR-->
   <mat-drawer mode="side" opened>
-    <mat-list>
-      <h3 mat-subheader>Groups</h3>
-      <!-- <mat-divider></mat-divider> -->
-      <mat-list-item *ngFor="let group of groups" (click)="selectGroup(group)">
-        <mat-icon mat-list-icon >folder</mat-icon>
-        <h4 mat-line>{{group}}</h4>
-        <p mat-line> 4 items </p>
-      </mat-list-item>
-    </mat-list>
+    <div *ngIf = "groups$ | async as groups">
+      <mat-list>
+        <h3 mat-subheader>Groups</h3>
+        <!-- <mat-divider></mat-divider> -->
+        <mat-list-item *ngFor="let group of groups" (click)="selectGroup(group)">
+          <mat-icon mat-list-icon >folder</mat-icon>
+          <h4 mat-line>{{group}}</h4>
+          <!-- <p mat-line> 4 items </p> -->
+        </mat-list-item>
+      </mat-list>
+    </div>
   </mat-drawer>
 
-  <!--CONTENT-->
+  <!--CONTENT: BOOKMARKS-->
   <mat-drawer-content>
     <div *ngIf = "bookmarks$ | async as bookmarks">
       <table mat-table [dataSource]="bookmarks">
