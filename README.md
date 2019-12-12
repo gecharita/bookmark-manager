@@ -46,9 +46,9 @@ The user can:
 
 
 
-- **src/app/bookmark/state**: contains all the components that implements Redux inspired NgRx pattern for managing the state of the bookmark.
+- **src/app/bookmark/state**: contains all the components that implement Redux inspired NgRx pattern for managing the state of the bookmark.
 
-- **src/app/app.state.ts**: contains of the state (store) of the whole application (currently only bookmark's).
+- **src/app/app.state.ts**: contains the state (store) of the whole application (currently only bookmark's).
 
 - **src/app/services/bookmark.service.ts**: contains a mock service that returns some predefined bookmarks.
 
@@ -62,7 +62,7 @@ The user can:
 - **RESTORE_BOOKMARKS** = '[Bookmark] Restore Bookmarks to current state'
 
 ### NgRx Reducers
-The reducer "listens" to the following actions, apart the default one:
+The reducer "listens" to the following actions, apart from the default one:
 
 - **GET_BOOKMARKS**: returns the state with all bookmarks
 - **CREATE_BOOKMARK**: adds the new bookmark to the state and returns the updated state
