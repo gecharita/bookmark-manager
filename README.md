@@ -1,12 +1,16 @@
 # Bookmark Manager
 
 ## Screenshots
-![Alt text](./src/assets/screenshots/b1-all.png?raw=true "Overview")
-![Alt text](./src/assets/screenshots/b2-all-edit.png?raw=true "Overview Edit mode")
 
+#### Overview
+![Alt text](./src/assets/screenshots/b1-all.png?raw=true "Overview")
+#### Overview Edit mode
+![Alt text](./src/assets/screenshots/b2-all-edit.png?raw=true "Overview Edit mode")
+#### Tooltips
 ![Alt text](./src/assets/screenshots/b3.png?raw=true "Tooltip Groups")
 ![Alt text](./src/assets/screenshots/b4.png?raw=true "Tooltip Actions")
 ![Alt text](./src/assets/screenshots/b5.png?raw=true "Tooltip Create")
+#### Dialogs
 ![Alt text](./src/assets/screenshots/b6.png?raw=true "Dialog Create")
 ![Alt text](./src/assets/screenshots/b7.png?raw=true "Dialog Edit")
 
