@@ -4,10 +4,11 @@ table {
 
 
 .bookmark-content {
-  width: 100%;
+  // width: 95%;
   height: 70%;
-  margin: 10px;
+  margin: 2% 2%;
   border: 1px solid gray;
+  align-items: center;
 }
 
 #group-button{
@@ -18,6 +19,8 @@ table {
   flex: 1 1 auto;
 }
 
-.create-bookmark-btn{
-
+.group-indicator-btn{
+  align-content: center;
+  align-items: center;
+  align-self: center;
 }

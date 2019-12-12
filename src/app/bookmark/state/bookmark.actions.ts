@@ -4,15 +4,17 @@ import { Bookmark, Bookmarks } from './bookmark.state';
 export enum EBookmarkActions {
     GET_BOOKMARKS = '[Bookmark] Get Bookmarks',
     CREATE_BOOKMARK= '[Bookmark] Create Bookmark',
+    EDIT_BOOKMARK= '[Bookmark] Edit Bookmark',
     DELETE_BOOKMARK = '[Bookmark] Delete Bookmark',
     LOAD_BOOKMARK_INIT = '[Bookmark] Load Bookmark init',
-    LOAD_BOOKMARK_DONE = '[Bookmark] Load Bookmark done'
+    LOAD_BOOKMARK_DONE = '[Bookmark] Load Bookmark done',
+    RESTORE_BOOKMARKS = '[Bookmark] Restore Bookmarks to current state'
 }
 
 export class GetBookmarks implements Action {
     readonly type = EBookmarkActions.GET_BOOKMARKS;
 
-    constructor(public payload: any){
+    constructor(public payload: any) {
         console.log('ACTION ' + EBookmarkActions.GET_BOOKMARKS);
     }
 }
@@ -23,6 +25,14 @@ export class CreateBookmark implements Action {
     constructor(public payload: Bookmark) {
         console.log('ACTION ' + EBookmarkActions.CREATE_BOOKMARK);
     }
+}
+
+export class EditBookmark implements Action {
+  readonly type = EBookmarkActions.EDIT_BOOKMARK;
+
+  constructor(public payload: Bookmark) {
+      console.log('ACTION ' + EBookmarkActions.EDIT_BOOKMARK);
+  }
 }
 
 export class DeleteBookmark implements Action {
@@ -49,4 +59,13 @@ export class LoadBookmarkDone implements Action {
     }
 }
 
-export type BookmarkActions = GetBookmarks | CreateBookmark | DeleteBookmark | LoadBookmarkInit | LoadBookmarkDone;
+export class RestoreBookmarks implements Action {
+  readonly type = EBookmarkActions.RESTORE_BOOKMARKS;
+
+  constructor(public payload: any) {
+      console.log('ACTION ' + EBookmarkActions.RESTORE_BOOKMARKS);
+  }
+}
+
+export type BookmarkActions = GetBookmarks | CreateBookmark | DeleteBookmark |
+ LoadBookmarkInit | LoadBookmarkDone | EditBookmark | RestoreBookmarks;

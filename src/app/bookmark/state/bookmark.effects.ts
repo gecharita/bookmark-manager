@@ -7,7 +7,7 @@ import { BookmarkService } from '../../services/bookmark.service';
 @Injectable({providedIn: 'root'})
 export class BookmarkEffects {
 
-    constructor(private actions$: Actions, private bookmarkServie: BookmarkService){}
+    constructor(private actions$: Actions, private bookmarkServie: BookmarkService){ }
 
     @Effect()
     public loadBookmarks$ = this.actions$.pipe(
@@ -18,14 +18,4 @@ export class BookmarkEffects {
             )
         )
     );
-
-
-    // @Effect()
-    // public deleteBookmark$ = this.actions$.pipe(
-    //     ofType(EBookmarkActions.DELETE_BOOKMARK_INIT),
-    //     switchMap((action: DeleteBookmarkInit) =>
-    //         new DeleteBookmarkDone(null);
-    //     )
-    // );
-
 }

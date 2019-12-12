@@ -5,8 +5,8 @@
   <mat-slide-toggle color="warn" [(ngModel)]="isEditMode">Edit</mat-slide-toggle>
 </mat-toolbar>
 
-<!--SIDE BAR: GROUPS-->
 <mat-drawer-container class="bookmark-content">
+  <!--SIDE BAR: GROUPS-->
   <mat-drawer mode="side" opened>
     <div *ngIf = "groups$ | async as groups">
       <mat-list>
@@ -24,6 +24,8 @@
   <!--CONTENT: BOOKMARKS-->
   <mat-drawer-content>
     <div *ngIf = "bookmarks$ | async as bookmarks">
+      <button mat-button color="primary">{{selectedGroup}}</button>
+
       <table mat-table [dataSource]="bookmarks">
           <ng-container matColumnDef="Name">
               <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -31,7 +33,12 @@
           </ng-container>
           <ng-container matColumnDef="URL">
               <th mat-header-cell *matHeaderCellDef>URL</th>
-              <td mat-cell *matCellDef="let bookmark"> {{bookmark.url}} </td>
+
+              <td mat-cell *matCellDef="let bookmark">
+                  <a href="//{{bookmark.url}}" target="_blank" rel="noopener">
+                    {{bookmark.url}}
+                  </a>
+              </td>
           </ng-container>
           <ng-container matColumnDef="Group">
               <th mat-header-cell *matHeaderCellDef>Group</th>
@@ -40,6 +47,9 @@
           <ng-container matColumnDef="Delete">
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let bookmark">
+                <button *ngIf="isEditMode" mat-icon-button color="primary" aria-label="edit icon" (click)="openDialog(true, bookmark)">
+                    <mat-icon>edit</mat-icon>
+                </button>
                 <button *ngIf="isEditMode" mat-icon-button color="warn" aria-label="delete icon" (click)="deleteBookmark(bookmark)">
                     <mat-icon>delete</mat-icon>
                 </button>
@@ -53,7 +63,6 @@
   </mat-drawer-content>
 </mat-drawer-container>
 
-<hr>
 
 <div align="center" class='create-bookmark-btn'>
   <button mat-fab color="primary" aria-hidden="false" aria-label="Create bookmark" (click)="openDialog()">
