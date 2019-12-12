@@ -2,8 +2,11 @@ import { Component, OnInit, Inject, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectBookmarks, selectBookmarksGroups, selectBookmarksByGroup } from '../app.state';
-import { Bookmarks, Bookmark, DeleteBookmark, CreateBookmark, LoadBookmarkInit, EditBookmark, RestoreBookmarks } from './state';
+import { Bookmark, DeleteBookmark, CreateBookmark, LoadBookmarkInit, EditBookmark, RestoreBookmarks } from './state';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 
 @Component({
@@ -16,13 +19,19 @@ export class BookmarkComponent implements OnInit {
   bookmarks$: Observable<Bookmark[]>;
   groups$: Observable<string[]>;
 
-  displayedColumns: string[] = ['Name', 'URL', 'Group', 'Delete'];
+  displayedColumns: string[] = ['Name', 'URL', 'Group', 'Actions'];
 
   isEditMode = false;
 
   selectedGroup: string;
 
-  constructor(private store: Store<AppState>, public dialog: MatDialog) { }
+  constructor(private store: Store<AppState>, public dialog: MatDialog,
+    private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer ) {
+    matIconRegistry.addSvgIcon(
+      `avaloq-logo`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../../assets/avaloq-logo.svg')
+    );
+   }
 
   ngOnInit() {
     this.groups$ = this.store.pipe(select(selectBookmarksGroups));
