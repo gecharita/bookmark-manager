@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BookmarkComponent, DialogCreateBookmarkComponent } from './bookmark/bookmark.component';
+import { BookmarkComponent, DialogCreateBookmarkComponent, NotificationComponent } from './bookmark/bookmark.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { StoreModule } from '@ngrx/store';
@@ -31,6 +31,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AppComponent,
     BookmarkComponent,
     DialogCreateBookmarkComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +57,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [BookmarkComponent, DialogCreateBookmarkComponent],
+  entryComponents: [BookmarkComponent, DialogCreateBookmarkComponent, NotificationComponent],
 })
 export class AppModule { }

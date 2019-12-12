@@ -6,6 +6,8 @@ import { Bookmark, DeleteBookmark, CreateBookmark, LoadBookmarkInit, EditBookmar
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 
 
@@ -26,7 +28,8 @@ export class BookmarkComponent implements OnInit {
   selectedGroup: string;
 
   constructor(private store: Store<AppState>, public dialog: MatDialog,
-    private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer ) {
+    private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer,
+    private snackBar: MatSnackBar) {
     matIconRegistry.addSvgIcon(
       `avaloq-logo`,
       this.domSanitizer.bypassSecurityTrustResourceUrl('../../assets/avaloq-logo.svg')
@@ -50,20 +53,32 @@ export class BookmarkComponent implements OnInit {
 
   createBookmark(bookmark: Bookmark) {
     this.store.dispatch(new CreateBookmark(bookmark));
+    this.showNotification();
   }
 
   editBookmark(bookmark: Bookmark) {
     this.store.dispatch(new EditBookmark(bookmark));
+    this.showNotification();
   }
 
 
   deleteBookmark(bookmark: Bookmark) {
     this.store.dispatch(new DeleteBookmark(bookmark));
+    this.showNotification();
   }
 
   loadBookmarks() {
     this.store.dispatch(new LoadBookmarkInit(null));
   }
+
+  showNotification() {
+    this.snackBar.openFromComponent(NotificationComponent, {
+      duration: 1000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'right'
+    });
+  }
+
 
   openDialog(editMode: boolean = false, bookmark: BookmarkData ): void {
     const dialogData = new DialogData(editMode, bookmark);
@@ -85,6 +100,10 @@ export class BookmarkComponent implements OnInit {
   }
 }
 
+
+/**
+ * Dialog Create Bookmark
+ */
 @Component({
   selector: 'app-bookmark-create-dialog',
   templateUrl: './bookmark.create-dialog.html',
@@ -125,3 +144,10 @@ export class BookmarkData implements Bookmark {
   group: '';
 }
 
+
+@Component({
+  selector: 'app-notification',
+  templateUrl: '../bookmark/bookmark.notification.html',
+  styleUrls: ['../bookmark/bookmark.component.scss'],
+})
+export class NotificationComponent {}

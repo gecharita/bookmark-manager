@@ -11,6 +11,11 @@ table {
   align-items: center;
 }
 
+.group-list-item {
+  border: 1px solid lightgray;
+  color: darkgoldenrod;
+}
+
 #group-button{
   width: 100%;
 }
@@ -19,7 +24,7 @@ table {
   flex: 1 1 auto;
 }
 
-.group-indicator-btn{
+.group-indicator-btn, .notification{
   text-align: center;
 }
 
