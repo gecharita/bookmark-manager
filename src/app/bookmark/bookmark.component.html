@@ -15,8 +15,8 @@
       <mat-list>
         <h3 mat-subheader>Groups</h3>
         <!-- <mat-divider></mat-divider> -->
-        <mat-list-item *ngFor="let group of groups" (click)="selectGroup(group)">
-          <mat-icon class="group-list-item" matTooltip="Show '{{group}}' bookmarks" mat-list-icon >folder</mat-icon>
+        <mat-list-item class ="group-list-item" *ngFor="let group of groups" (click)="selectGroup(group)">
+          <mat-icon class="group-list-item-icon" matTooltip="Show '{{group}}' bookmarks" mat-list-icon >folder</mat-icon>
           <h4 mat-line>{{group}}</h4>
           <!-- <p mat-line> 4 items </p> -->
         </mat-list-item>
@@ -70,7 +70,7 @@
   </mat-drawer-content>
 </mat-drawer-container>
 
-<div align="center" class='create-bookmark-btn'>
+<div class='create-bookmark-btn'>
   <button mat-fab matTooltip="Create a new bookmark" color="primary" aria-hidden="false" aria-label="Create bookmark" (click)="openDialog(false)">
     <mat-icon >add</mat-icon>
   </button>
