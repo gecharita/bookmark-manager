@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BookmarkComponent, DialogCreateBookmarkComponent, NotificationComponent } from './bookmark/bookmark.component';
+import { BookmarkComponent } from './bookmark/bookmark.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { StoreModule } from '@ngrx/store';
@@ -25,7 +25,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import {DialogCreateBookmarkComponent} from './bookmark/create-dialog/bookmark.create-dialog.component';
+import {NotificationComponent} from './bookmark/notification/bookmark.notification.component';
 
 
 @NgModule({

@@ -1,0 +1,26 @@
+<h1 mat-dialog-title> Bookmark </h1>
+
+<div mat-dialog-content>
+    <mat-form-field>
+      <label>
+        <input matInput name="name"  placeholder="Name" required [(ngModel)]="name">
+      </label>
+    </mat-form-field>
+    <mat-form-field>
+      <label>
+        <textarea matInput type="url" placeholder="URL" required name="url" [(ngModel)]="url"></textarea>
+      </label>
+    </mat-form-field>
+    <mat-form-field>
+      <label>
+        <input matInput placeholder="Group" required name="group" [(ngModel)]="group">
+      </label>
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onSave()" cdkFocusInitial>Save</button>
+  <button mat-button (click)="onCancel()">Cancel</button>
+</div>
+
+

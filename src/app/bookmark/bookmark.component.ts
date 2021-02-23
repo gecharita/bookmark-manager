@@ -7,9 +7,12 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-
-
+import {
+  BookmarkData,
+  DialogCreateBookmarkComponent,
+  DialogData
+} from './create-dialog/bookmark.create-dialog.component';
+import {NotificationComponent} from './notification/bookmark.notification.component';
 
 @Component({
   selector: 'app-bookmark',
@@ -99,63 +102,10 @@ export class BookmarkComponent implements OnInit, OnDestroy {
           if (editMode) {
             this.editBookmark(data);
           } else {
-            this.createBookmark(data.bookMarkData);
+            this.createBookmark(data);
           }
         }
       })
     );
   }
 }
-
-
-/**
- * Dialog Create Bookmark
- */
-@Component({
-  selector: 'app-bookmark-create-dialog',
-  templateUrl: './bookmark.create-dialog.html',
-})
-export class DialogCreateBookmarkComponent {
-
-  isEditMode = false;
-
-  constructor(
-    public dialogRef: MatDialogRef<DialogCreateBookmarkComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-      this.isEditMode = data.isEditMode;
-    }
-
-  onCancel(): void {
-    this.dialogRef.close();
-  }
-
-}
-
-export class DialogData {
-  bookMarkData: BookmarkData;
-  isEditMode = false;
-
-  constructor(isEditMode: boolean, bookmarkData: BookmarkData) {
-    this.isEditMode = isEditMode;
-    if (!isEditMode) {
-      this.bookMarkData = new BookmarkData();
-    } else {
-      this.bookMarkData = bookmarkData;
-    }
-  }
-}
-
-export class BookmarkData implements Bookmark {
-  id: '';
-  name: '';
-  url: '';
-  group: '';
-}
-
-
-@Component({
-  selector: 'app-notification',
-  templateUrl: '../bookmark/bookmark.notification.html',
-  styleUrls: ['../bookmark/bookmark.component.scss'],
-})
-export class NotificationComponent {}

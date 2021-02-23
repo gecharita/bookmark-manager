@@ -30,8 +30,11 @@ export class BookmarkService {
   }
 
   getBookmarks(): Observable<Bookmark[]>{
-    console.log('SERVICE getDummyBookmarks');
     return this.httpClient.get<Bookmark[]>(this.REST_API_SERVER);
+  }
+
+  deleteBookmarks(id: string): Observable<boolean>{
+    return this.httpClient.delete<boolean>(this.REST_API_SERVER + id);
   }
 
 }

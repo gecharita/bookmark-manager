@@ -1,6 +1,5 @@
-import { BookmarkActions, EBookmarkActions } from './bookmark.actions'
-import { Bookmarks, initialBookmarksState, Bookmark } from './bookmark.state'
-
+import { BookmarkActions, EBookmarkActions } from './bookmark.actions';
+import { Bookmarks, initialBookmarksState, Bookmark } from './bookmark.state';
 
 export function bookmarkReducer(state = initialBookmarksState, action: BookmarkActions): Bookmarks {
     switch (action.type) {
@@ -14,12 +13,11 @@ export function bookmarkReducer(state = initialBookmarksState, action: BookmarkA
         }
         case EBookmarkActions.EDIT_BOOKMARK: {
           console.log('REDUCER: ' + EBookmarkActions.EDIT_BOOKMARK);
-          // Replace old bookmark with the new one
-          const index = state.bookmarks.indexOf(action.payload);
-          if (index !== -1) {
-            state.bookmarks[index] = action.payload;
-          }
-          return state;
+          const index = state.bookmarks.findIndex(b => b.id  === action.payload.id);
+          const newBookmarks = state.bookmarks.filter(bookmark => bookmark.id !== action.payload.id)
+                                              .concat(action.payload)
+                                              .sort((bookmarkA, bookmarkB) => (bookmarkA.id > bookmarkB.id) ? 1 : -1);
+          return  { bookmarks: newBookmarks};
         }
         case EBookmarkActions.DELETE_BOOKMARK: {
             console.log('REDUCER: ' + EBookmarkActions.DELETE_BOOKMARK);

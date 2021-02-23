@@ -11,7 +11,7 @@ export interface Bookmarks {
 
 export const initialBookmarksState: Bookmarks = {
     bookmarks: [
-    //     {name: 'google', url: 'www.google.com', group: 'general'},
-    //     {name: 'dzone', url: 'www.dzone.com', group: 'work'},
+    //     {id: '1111', name: 'google', url: 'www.google.com', group: 'general'},
+    //     {id: '1112', name: 'dzone', url: 'www.dzone.com', group: 'work'},
     ]
 };
