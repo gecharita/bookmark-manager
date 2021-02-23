@@ -27,9 +27,8 @@ export class BookmarkComponent implements OnInit {
 
   selectedGroup: string;
 
-  constructor(private store: Store<AppState>, public dialog: MatDialog,
-    private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer,
-    private snackBar: MatSnackBar) {
+  constructor(private store: Store<AppState>, public dialog: MatDialog, private matIconRegistry: MatIconRegistry,
+              private domSanitizer: DomSanitizer, private snackBar: MatSnackBar) {
     matIconRegistry.addSvgIcon(
       `avaloq-logo`,
       this.domSanitizer.bypassSecurityTrustResourceUrl('../../assets/avaloq-logo.svg')
@@ -80,7 +79,7 @@ export class BookmarkComponent implements OnInit {
   }
 
 
-  openDialog(editMode: boolean = false, bookmark: BookmarkData ): void {
+  openDialog(editMode: boolean = false, bookmark?: BookmarkData ): void {
     const dialogData = new DialogData(editMode, bookmark);
 
     const dialogRef = this.dialog.open(DialogCreateBookmarkComponent, {
