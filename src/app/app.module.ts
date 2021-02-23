@@ -12,7 +12,9 @@ import { initialState, reducers, effects } from './app.state';
 import { EffectsModule } from '@ngrx/effects';
 
 import { MatTableModule } from '@angular/material/table';
-import { MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
