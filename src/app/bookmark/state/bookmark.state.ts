@@ -1,4 +1,5 @@
 export interface Bookmark {
+    id: string;
     name: string;
     url: string;
     group: string;
@@ -10,7 +11,7 @@ export interface Bookmarks {
 
 export const initialBookmarksState: Bookmarks = {
     bookmarks: [
-        {name: 'google', url: 'www.google.com', group: 'general'},
-        {name: 'dzone', url: 'www.dzone.com', group: 'work'},
+    //     {name: 'google', url: 'www.google.com', group: 'general'},
+    //     {name: 'dzone', url: 'www.dzone.com', group: 'work'},
     ]
-}
+};

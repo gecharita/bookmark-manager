@@ -2,20 +2,25 @@
 
 <div mat-dialog-content>
     <mat-form-field>
+      <label>
         <input matInput name="name"  placeholder="Name" required [(ngModel)]="data.bookMarkData.name">
+      </label>
     </mat-form-field>
     <mat-form-field>
-        <!-- <input matInput type="url" placeholder="URL" required name="url" [(ngModel)]="data.bookMarkData.url"> -->
+      <label>
         <textarea matInput type="url" placeholder="URL" required name="url" [(ngModel)]="data.bookMarkData.url"></textarea>
+      </label>
     </mat-form-field>
     <mat-form-field>
-        <input matInput name="group" placeholder="Group" required name="group" [(ngModel)]="data.bookMarkData.group">
+      <label>
+        <input matInput placeholder="Group" required name="group" [(ngModel)]="data.bookMarkData.group">
+      </label>
     </mat-form-field>
 </div>
 
 <div mat-dialog-actions>
   <button mat-raised-button [mat-dialog-close]="data" cdkFocusInitial>Save</button>
-  <button mat-button *ngIf="!isEditMode" (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onCancel()">Cancel</button>
 </div>
 
 

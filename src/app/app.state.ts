@@ -8,11 +8,11 @@ export interface AppState {
 
 export const initialState: AppState = {
     bookmarks: bookmarkStore.initialBookmarksState
-}
+};
 
 export const reducers: ActionReducerMap<AppState> = {
     bookmarks: bookmarkStore.bookmarkReducer
-}
+};
 
 export const effects: Array<any> = [
     bookmarkStore.BookmarkEffects

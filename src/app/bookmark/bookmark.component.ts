@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import {Component, OnInit, Inject, Input, OnDestroy} from '@angular/core';
+import {Observable, Subscription} from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState, selectBookmarks, selectBookmarksGroups, selectBookmarksByGroup } from '../app.state';
 import { Bookmark, DeleteBookmark, CreateBookmark, LoadBookmarkInit, EditBookmark, RestoreBookmarks } from './state';
@@ -16,7 +16,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './bookmark.component.html',
   styleUrls: ['./bookmark.component.scss']
 })
-export class BookmarkComponent implements OnInit {
+export class BookmarkComponent implements OnInit, OnDestroy {
+
+  private subscriptions = new Subscription();
 
   bookmarks$: Observable<Bookmark[]>;
   groups$: Observable<string[]>;
@@ -39,6 +41,10 @@ export class BookmarkComponent implements OnInit {
     this.groups$ = this.store.pipe(select(selectBookmarksGroups));
     this.selectGroup('All');
     this.loadBookmarks();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   selectGroup(group: string) {
@@ -87,15 +93,17 @@ export class BookmarkComponent implements OnInit {
       data: dialogData
     });
 
-    dialogRef.afterClosed().subscribe(data => {
-      if (data) {
-        if (editMode) {
-          this.editBookmark(data);
-        } else {
-          this.createBookmark(data.bookMarkData);
+    this.subscriptions.add(
+      dialogRef.afterClosed().subscribe(data => {
+        if (data) {
+          if (editMode) {
+            this.editBookmark(data);
+          } else {
+            this.createBookmark(data.bookMarkData);
+          }
         }
-      }
-    });
+      })
+    );
   }
 }
 
@@ -138,6 +146,7 @@ export class DialogData {
 }
 
 export class BookmarkData implements Bookmark {
+  id: '';
   name: '';
   url: '';
   group: '';
