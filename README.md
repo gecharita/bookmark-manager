@@ -12,7 +12,6 @@
 ![Alt text](./src/assets/screenshots/b5.png?raw=true "Tooltip Create")
 #### Dialogs
 ![Alt text](./src/assets/screenshots/b6.png?raw=true "Dialog Create")
-![Alt text](./src/assets/screenshots/b7.png?raw=true "Dialog Edit")
 
 
 ## How to run the application
@@ -85,7 +84,6 @@ The reducer "listens" to the following actions, apart from the default one:
 - **initialStates**: initialBookmarksState, that contains 2 bookmarks
 
 ## Initial data
-As a showcase initial data are loaded with 2 ways in parallel:
-- from **src/app/bookmark/state/bookmark.state.ts** -> initialBookmarksState that is passed as initial state in the reducer.
-- by calling **LOAD_BOOKMARK_INIT** action in **src/app/bookmark/bookmark.component.ts** -> ngOnInit(). That action triggers an effect and a dummy service is called after some seconds.
+As a showcase initial data are loaded as follows:
+- by calling **LOAD_BOOKMARK_INIT** action in **src/app/bookmark/bookmark.component.ts** -> ngOnInit(). That action triggers an effect and the **bookmark manager service** (relevant Spring Boot Project on 8900 port) is called.
 > That is the only case that an effect is being called. In all other cases state modified directly in the reducer.
